@@ -6,7 +6,7 @@ ext.quillPackage = [
     id: "quill-template",
     version: project.version,
     depends: [
-        "muscaa@quill-core"
+        //"muscaa@quill-core"
     ],
 ]
 
