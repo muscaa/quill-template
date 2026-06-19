@@ -1,0 +1,9 @@
+{
+    "install": {
+        "run": {
+            "win": "gradlew.bat bundle",
+            "*": "./gradlew bundle"
+        },
+        "from": "build/quill/bundle/quill-template-bundle.zip"
+    }
+}
