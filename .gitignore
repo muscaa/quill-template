@@ -1,25 +1,15 @@
-## Build:
-/bin/
-/build/
-
-## Gradle:
+# Gradle & IDE
 .gradle/
-
-## Java:
-*.class
-
-## IntelliJ:
-.idea/
-
-## Eclipse:
 .settings/
+.idea/
+.kotlin/
 .classpath
 .project
-*.launch
 
-## VSCode
-.vscode/
-
-## OS:
+# OS
 .DS_Store
-Thumbs.db
+
+# Project Specific
+/bin/
+/build/
+/run/
