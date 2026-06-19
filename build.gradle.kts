@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    bootstrap("dev.musca:quill-core:1.0.6") // use latest version
+    bootstrap("dev.musca:quill-core:1.0.7") // use latest version
 }
 
 tasks.register("generatePackageJson") {
