@@ -6,6 +6,7 @@ plugins {
 group = "dev.musca"
 version = System.getenv("GITHUB_REF_NAME")?.removePrefix("v") ?: "0.0.1-SNAPSHOT"
 
+// set info as you wish or modify this file completly
 extra["info"] = mapOf(
     "id" to project.name,
     "name" to "Quill Template",
@@ -26,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    bootstrap("dev.musca:quill-core:1.0.0")
+    bootstrap("dev.musca:quill-core:1.0.6") // use latest version
 }
 
 tasks.register("generatePackageJson") {
