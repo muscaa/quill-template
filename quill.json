@@ -4,6 +4,6 @@
             "win": "gradlew.bat bundle",
             "*": "./gradlew bundle"
         },
-        "from": "build/quill/bundle/quill-template-bundle.zip"
+        "from": "build/quill/quill-template-java-bundle.zip"
     }
 }

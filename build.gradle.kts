@@ -9,7 +9,7 @@ version = System.getenv("GITHUB_REF_NAME")?.removePrefix("v") ?: "0.0.1-SNAPSHOT
 // set info as you wish or modify this file completly
 extra["info"] = mapOf(
     "id" to project.name,
-    "name" to "Quill Template",
+    "name" to "Quill Template Java",
     "authorId" to "muscaa",
     "authorName" to "musca",
     "description" to "Quill java package template",
@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    bootstrap("dev.musca:quill-core:1.0.7") // use latest version
+    bootstrap("dev.musca:quill-core:1.0.9") // use latest version
 }
 
 tasks.register("generatePackageJson") {
@@ -70,7 +70,7 @@ tasks.register<Zip>("bundle") {
     group = "quill"
     description = "Bundles the project into an installable quill java package."
 
-    destinationDirectory.set(layout.buildDirectory.dir("quill/bundle"))
+    destinationDirectory.set(layout.buildDirectory.dir("quill"))
     archiveFileName.set("${project.name}-bundle.zip")
 
     val preBundleTask = tasks.named("preBundle")
