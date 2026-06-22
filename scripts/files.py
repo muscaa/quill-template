@@ -1,8 +1,8 @@
 from pathlib import Path
 
-import scripts
+import __about__ as a
 
-PROJECT_ROOT = Path(scripts.__file__).parent.parent
+PROJECT_ROOT = Path(a.__file__).parent
 VENV_LIB = PROJECT_ROOT / ".venv" / "lib"
 VENV_LIB_SITEPACKAGES = next(p for p in Path(VENV_LIB).iterdir() if p.is_dir()) / "site-packages"
 SRC = PROJECT_ROOT / "src" / "main" / "resources" / "bundle"
