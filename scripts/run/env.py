@@ -1,4 +1,5 @@
 import os
+import sys
 
 import __about__ as a
 

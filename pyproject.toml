@@ -15,5 +15,6 @@ sources = ["."]
 init = "scripts:init"
 env = "scripts:env"
 generate = "scripts:generate"
+gradlew = "scripts:gradlew"
 dev = "scripts:dev"
 build = "scripts:build"

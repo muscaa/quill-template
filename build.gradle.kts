@@ -3,18 +3,19 @@ plugins {
     id("com.vanniktech.maven.publish") version "0.36.0"
 }
 
-group = "dev.musca"
-version = System.getenv("GITHUB_REF_NAME")?.removePrefix("v") ?: "0.0.1-SNAPSHOT"
-
-// set info as you wish or modify this file completly
-extra["info"] = mapOf(
-    "id" to project.name,
-    "name" to "Quill Template Java",
-    "authorId" to "muscaa",
-    "authorName" to "musca",
-    "description" to "Quill java package template",
+// set about info as you wish or modify this file completly
+extra["about"] = mapOf(
+    "id" to System.getenv("QUILL_ID") ?: throw GradleException("QUILL_ID environment variable is required"),
+    "name" to System.getenv("QUILL_NAME") ?: throw GradleException("QUILL_NAME environment variable is required"),
+    "authorId" to System.getenv("QUILL_AUTHOR_ID") ?: throw GradleException("QUILL_AUTHOR_ID environment variable is required"),
+    "authorName" to System.getenv("QUILL_AUTHOR_NAME") ?: throw GradleException("QUILL_AUTHOR_NAME environment variable is required"),
+    "version" to System.getenv("QUILL_VERSION") ?: throw GradleException("QUILL_VERSION environment variable is required"),
+    "description" to System.getenv("QUILL_DESCRIPTION") ?: throw GradleException("QUILL_DESCRIPTION environment variable is required"),
 )
-val info: Map<String, String> by extra
+val about: Map<String, String> by extra
+
+group = "dev.musca"
+version = about.getValue("version")
 
 val shade = configurations.create("shade")
 configurations.api.get().extendsFrom(shade)
@@ -30,26 +31,6 @@ dependencies {
     bootstrap("dev.musca:quill-core:1.0.9") // use latest version
 }
 
-tasks.register("generatePackageJson") {
-	val outputFile = layout.buildDirectory.file("quill/generated/package.json")
-	outputs.file(outputFile)
-	
-	doLast {
-		val file = outputFile.get().asFile
-		file.parentFile.mkdirs()
-		file.writeText(
-			"""
-			{
-				"id": "${info["id"]}",
-				"author": "${info["authorId"]}",
-				"version": "${project.version}",
-				"description": "${info["description"]}"
-			}
-			""".trimIndent()
-		)
-	}
-}
-
 tasks.register<Sync>("preBundle") {
     dependsOn("jar")
     into(layout.buildDirectory.dir("quill/pre-bundle"))
@@ -62,23 +43,6 @@ tasks.register<Sync>("preBundle") {
                 .minus(bootstrap))
         }
     }
-
-    from("src/main/resources/bundle")
-}
-
-tasks.register<Zip>("bundle") {
-    group = "quill"
-    description = "Bundles the project into an installable quill java package."
-
-    destinationDirectory.set(layout.buildDirectory.dir("quill"))
-    archiveFileName.set("${project.name}-bundle.zip")
-
-    val preBundleTask = tasks.named("preBundle")
-    val generatePackageJsonTask = tasks.named("generatePackageJson")
-    dependsOn(preBundleTask, generatePackageJsonTask)
-
-    from(preBundleTask.map { it.outputs.files })
-    from(generatePackageJsonTask)
 }
 
 tasks.processResources {
@@ -111,13 +75,13 @@ mavenPublishing {
     signAllPublications()
     coordinates(project.group.toString(), project.name, project.version.toString())
 
-    val developerId = info["authorId"]
-    val developerName = info["authorName"]
+    val developerId = about["authorId"]
+    val developerName = about["authorName"]
     val projectId = project.name
 
     pom {
-        name.set(info["name"])
-        description.set(info["description"])
+        name.set(about["name"])
+        description.set(about["description"])
         inceptionYear.set("2026")
         url.set("https://github.com/${developerId}/${projectId}/")
         licenses {
